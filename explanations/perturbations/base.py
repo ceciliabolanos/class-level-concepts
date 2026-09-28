@@ -115,26 +115,13 @@ class BaseDataGenerator(ABC):
             for mask_pct in self.config.mask_percentages 
             for window_sz in self.config.window_sizes
         ]
-        
-        # possibles = len(param_combinations)
-        # samples_per_combination = num_samples // possibles
-        # remaining_samples = num_samples % possibles
-        
-        # Generate samples_per_combination for each parameter combination
-        # for mask_percentage, window_size in param_combinations:
+    
         for _ in range(num_samples):
-            chosen = random.choice(param_combinations)  # Elige directamente una tupla
+            chosen = random.choice(param_combinations) 
             mask_percentage, window_size = chosen
             combination = self.time_perturbations(n_components, mask_percentage, window_size)
             combinations.append(combination)
-        
-        # # Distribute remaining samples randomly across all combinations
-        # for _ in range(remaining_samples):
-        #     mask_percentage, window_size = random.choice(param_combinations)
-        #     combination = self.time_perturbations(n_components, mask_percentage, window_size)
-        #     combinations.append(combination)
-        
-        # Shuffle to avoid having all same parameters grouped together
+    
         random.shuffle(combinations)
 
         return combinations
